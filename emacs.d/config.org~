@@ -1,0 +1,132 @@
+#+TITLE: Emacs Config
+
+* Load sensible-defaults.el
+
+Put the [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] (thank you hrs!) file in this directory first.
+
+#+BEGIN_SRC emacs-lisp
+  (load-file "~/Development/emacs/sensible-defaults.el")
+  (sensible-defaults/use-all-settings)
+  (sensible-defaults/use-all-keybindings)
+#+END_SRC
+
+* Set Personal Information
+
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Lage Ragnarsson"
+        user-mail-address "lage.ragnarsson@gmail.com"
+        calendar-latitude 58.41
+        calendar-longitude 15.62
+        calendar-location-name "Linköping, Sweden")
+#+END_SRC
+
+* Package Management
+[[https://github.com/cask/cask][cask.el]] needs to be placed in this directory.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'cask "~/Development/emacs/cask.el")
+  (cask-initialize)
+  (require 'pallet)
+#+END_SRC
+
+* Window Features
+Remove clutter, start in fullscreen.
+
+#+BEGIN_SRC emacs-lisp
+(load-library "iso-transl")
+
+(setq inhibit-startup-screen t)
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(global-linum-mode t)
+
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+#+END_SRC
+
+* Theme and Buffer Visuals
+
+#+BEGIN_SRC emacs-lisp
+;(load-theme 'zenburn t)
+(load-theme 'monokai t)
+
+(require 'whitespace)
+(setq whitespace-style '(face tabs tab-mark trailing))
+(global-whitespace-mode 1)
+
+(show-paren-mode)
+(global-hl-line-mode 1)
+
+(global-prettify-symbols-mode t)
+#+END_SRC
+
+* Formatting
+
+#+BEGIN_SRC emacs-lisp
+;GLSL
+(autoload 'glsl-mode "glsl-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.geom\\'" . glsl-mode))
+
+;Tabs
+(setq-default tab-width 4)
+(setq-default c-basic-offset 4)
+(setq-default indent-tabs-mode nil)
+
+#+END_SRC
+
+* Various Settings
+
+#+BEGIN_SRC emacs-lisp
+;Tramp
+(setq tramp-default-method "ssh")
+
+#+END_SRC
+
+* User Functions
+Foobar
+
+* Command Bindings
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key "\M-i" 'delete-indentation)
+
+(global-set-key "\M-n" "\C-u1\C-v") ;Scroll down
+(global-set-key "\M-p" "\C-u1\M-v") ;Scroll up
+
+;Key-chords
+(require 'key-chord)
+(key-chord-mode 1)
+
+(key-chord-define-global "fg" 'iy-go-to-char)
+(key-chord-define-global "df" 'iy-go-to-char-backward)
+
+;Multiple cursors
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+END_SRC
+
+* Auto-complete and Snippets
+Activate company mode:
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+* Org-mode
+
+#+BEGIN_SRC emacs-lisp
+(setq org-ellipsis "⤵")
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+(setq org-src-tab-acts-natively t)
+#+END_SRC
+
+* Notes
+That's all folks!
