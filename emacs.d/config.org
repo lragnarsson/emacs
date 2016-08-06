@@ -1,8 +1,6 @@
 #+TITLE: Emacs Config
 * Load sensible-defaults.el
 
-Put the [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] (thank you hrs!) file in this directory first.
-
 #+BEGIN_SRC emacs-lisp
   (load-file "~/.emacs.d/sensible-defaults.el")
   (sensible-defaults/use-all-settings)
@@ -23,7 +21,6 @@ Put the [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] (t
   (require 'use-package)
   (use-package company :ensure t)
   (use-package expand-region :ensure t)
-  (use-package key-chord :ensure t)
   (use-package monokai-theme :ensure t)
   (use-package multiple-cursors :ensure t)
   (use-package web-mode :ensure t)
@@ -65,8 +62,6 @@ Remove clutter, start in fullscreen.
 (set-face-foreground 'highlight nil )
 (set-face-attribute 'region nil :background "#666")
 
-(setq idle-highlight-mode t)
-
 (add-hook 'prog-mode-hook #'idle-highlight-mode)
 #+END_SRC
 * Formatting
@@ -101,13 +96,6 @@ Remove clutter, start in fullscreen.
 
 (global-set-key "\M-n" "\C-u1\C-v") ;Scroll down
 (global-set-key "\M-p" "\C-u1\M-v") ;Scroll up
-
-;Key-chords
-(require 'key-chord)
-(key-chord-mode 1)
-
-(key-chord-define-global "fg" 'iy-go-to-char)
-(key-chord-define-global "df" 'iy-go-to-char-backward)
 
 ;Multiple cursors
 (require 'multiple-cursors)
