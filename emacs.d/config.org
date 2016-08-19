@@ -103,6 +103,9 @@ Remove clutter, start in fullscreen.
     (rainbow-delimiters-mode 1))
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
+
+  ;CIDER
+  (setq cider-mode-line-show-connection nil)
 #+END_SRC
 * Command Bindings
 
