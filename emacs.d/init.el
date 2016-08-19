@@ -7,3 +7,7 @@
   (package-initialize))
 
 (org-babel-load-file "~/.emacs.d/config.org")
+
+(setq cider-cljs-lein-repl
+      "(do (user/run)
+           (user/browser-repl))")
