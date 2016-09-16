@@ -75,17 +75,18 @@ Remove clutter, start in fullscreen.
 #+END_SRC
 * Formatting
 #+BEGIN_SRC emacs-lisp
-;GLSL
-(autoload 'glsl-mode "glsl-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.geom\\'" . glsl-mode))
+  ;GLSL
+  (autoload 'glsl-mode "glsl-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.geom\\'" . glsl-mode))
 
-;Tabs
-(setq-default tab-width 4)
-(setq-default c-basic-offset 4)
-(setq-default indent-tabs-mode nil)
+  ;Tabs
+  (setq-default tab-width 4)
+  (setq-default c-default-style "linux"
+                c-basic-offset 4)
+  (setq-default indent-tabs-mode nil)
 
 #+END_SRC
 * Various Settings
@@ -111,17 +112,24 @@ Remove clutter, start in fullscreen.
 * Command Bindings
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key "\M-i" 'delete-indentation)
+  (global-set-key "\M-i" 'delete-indentation)
 
-(global-set-key "\M-n" "\C-u1\C-v") ;Scroll down
-(global-set-key "\M-p" "\C-u1\M-v") ;Scroll up
+  (global-set-key "\M-n" "\C-u1\C-v") ;Scroll down
+  (global-set-key "\M-p" "\C-u1\M-v") ;Scroll up
 
-;Multiple cursors
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  ;Multiple cursors
+  (require 'multiple-cursors)
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+  (defun end-of-line-and-indented-new-line ()
+    (interactive)
+    (end-of-line)
+    (newline-and-indent))
+
+  (global-set-key (kbd "<S-return>") 'end-of-line-and-indented-new-line)
 #+END_SRC
 * Auto-complete and Snippets
 Activate company mode:
