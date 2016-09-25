@@ -7,3 +7,7 @@ Emacs config
 3. run install script. If you have started emacs before you need to remove the ~/.emacs.d folder first.
 4. open emacs and install the package `use-package`
 5. restart emacs.
+
+## Updating
+1. git pull
+2. restart emacs
