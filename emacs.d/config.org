@@ -33,6 +33,7 @@
   (use-package paredit :ensure t)
   (use-package powerline :ensure t)
   (use-package rainbow-delimiters :ensure t)
+  (use-package js2-mode :ensure t)
 #+END_SRC
 * Window Features
 Remove clutter, start in fullscreen.
@@ -53,26 +54,6 @@ Remove clutter, start in fullscreen.
 (powerline-center-theme)
 
 #+End_SRC
-* Theme and Buffer Visuals
-
-#+BEGIN_SRC emacs-lisp
-  (load-theme 'gruvbox t)
-  ;(load-theme 'zenburn t)
-  ;(load-theme 'monokai t)
-
-  (require 'whitespace)
-  (setq whitespace-style '(face tabs tab-mark trailing))
-  (global-whitespace-mode 1)
-
-  (show-paren-mode)
-  (global-hl-line-mode 1)
-
-  (global-prettify-symbols-mode t)
-
-  (set-face-foreground 'highlight nil )
-  ;(set-face-attribute 'region nil :background "#666")
-
-#+END_SRC
 * Formatting
 #+BEGIN_SRC emacs-lisp
   ;GLSL
@@ -89,6 +70,31 @@ Remove clutter, start in fullscreen.
   (setq-default indent-tabs-mode nil)
 
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+#+END_SRC
+* Theme and Buffer Visuals
+
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'gruvbox t)
+  ;(load-theme 'zenburn t)
+  ;(load-theme 'monokai t)
+
+  (require 'whitespace)
+  (setq whitespace-style '(face tabs tab-mark trailing))
+  (global-whitespace-mode 1)
+
+  (show-paren-mode)
+  (global-hl-line-mode 1)
+
+  (global-prettify-symbols-mode t)
+
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (push '("function" . ?ƒ) prettify-symbols-alist)))
+
+  (set-face-foreground 'highlight nil )
+  ;(set-face-attribute 'region nil :background "#666")
 
 #+END_SRC
 * Various Settings
@@ -122,8 +128,8 @@ Remove clutter, start in fullscreen.
   ;Multiple cursors
   (require 'multiple-cursors)
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C->") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
   (defun end-of-line-and-indented-new-line ()
@@ -132,6 +138,9 @@ Remove clutter, start in fullscreen.
     (newline-and-indent))
 
   (global-set-key (kbd "<S-return>") 'end-of-line-and-indented-new-line)
+
+  (setq smerge-command-prefix (kbd "C-§"))
+
 #+END_SRC
 * Auto-complete and Snippets
 Activate company mode:
