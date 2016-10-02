@@ -88,6 +88,8 @@ Remove clutter, start in fullscreen.
                 c-basic-offset 4)
   (setq-default indent-tabs-mode nil)
 
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+
 #+END_SRC
 * Various Settings
 #+BEGIN_SRC emacs-lisp
