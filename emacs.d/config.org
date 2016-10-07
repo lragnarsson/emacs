@@ -34,6 +34,7 @@
   (use-package powerline :ensure t)
   (use-package rainbow-delimiters :ensure t)
   (use-package js2-mode :ensure t)
+  (use-package virtualenvwrapper :ensure t)
 #+END_SRC
 * Window Features
 Remove clutter, start in fullscreen.
@@ -116,6 +117,11 @@ Remove clutter, start in fullscreen.
 
   ;CIDER
   (setq cider-mode-line-show-connection nil)
+
+  ; Virtual env wrapper (Python)
+  (require 'virtualenvwrapper)
+  (venv-initialize-interactive-shells)
+
 #+END_SRC
 * Command Bindings
 
