@@ -10,8 +10,8 @@
 * Set Personal Information
 
 #+BEGIN_SRC emacs-lisp
-  (setq user-full-name "Lage Ragnarsson"
-        user-mail-address "lage.ragnarsson@gmail.com"
+  (setq user-full-name "Erik Sköld"
+        user-mail-address "erisk214@student.liu.se"
         calendar-latitude 58.41
         calendar-longitude 15.62
         calendar-location-name "Linköping, Sweden")
@@ -147,6 +147,19 @@ Remove clutter, start in fullscreen.
 
   (setq smerge-command-prefix (kbd "C-§"))
 
+  ;Move cursor to other window after split
+  (defun other-window-after-below-split ()
+    (interactive)
+    (split-window-below)
+    (other-window 1))
+
+  (defun other-window-after-right-split ()
+    (interactive)
+    (split-window-right)
+    (other-window 1))
+
+  (global-set-key (kbd "\C-x 2") 'other-window-after-below-split)
+  (global-set-key (kbd "\C-x 3") 'other-window-after-right-split)
 #+END_SRC
 * Auto-complete and Snippets
 Activate company mode:
