@@ -83,7 +83,7 @@ Remove clutter, start in fullscreen.
 
   (add-hook 'js2-mode-hook
             (lambda ()
-              (push '("function" . ?ƒ) prettify-symbols-alist)))
+              (push '("function" . ƒ) prettify-symbols-alist)))
 
   (set-face-foreground 'highlight nil )
   ;(set-face-attribute 'region nil :background "#666")
@@ -136,7 +136,7 @@ Remove clutter, start in fullscreen.
 
   (global-set-key (kbd "<S-return>") 'end-of-line-and-indented-new-line)
 
-  (setq smerge-command-prefix (kbd "C-§"))
+  (setq smerge-command-prefix (kbd "C-!"))
 
   ;Move cursor to other window after split
   (defun other-window-after-below-split ()
