@@ -26,7 +26,6 @@
   (use-package rainbow-delimiters :ensure t)
   (use-package js2-mode :ensure t)
   (use-package virtualenvwrapper :ensure t)
-  (use-package rust-mode :ensure t)
 #+END_SRC
 * Window Features
 Remove clutter, start in fullscreen.
@@ -83,7 +82,7 @@ Remove clutter, start in fullscreen.
   (show-paren-mode)
   (global-hl-line-mode 1)
 
-  ;(global-prettify-symbols-mode t)
+  (global-prettify-symbols-mode t)
 
   (add-hook 'js2-mode-hook
             (lambda ()
