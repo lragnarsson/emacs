@@ -63,6 +63,9 @@ Remove clutter, start in fullscreen.
 
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
+  (setq web-mode-engines-alist
+      '(("django"    . "\\.html\\'")))
+
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 #+END_SRC
 * Theme and Buffer Visuals
