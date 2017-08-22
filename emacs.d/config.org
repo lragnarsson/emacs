@@ -26,6 +26,10 @@
   (use-package rainbow-delimiters :ensure t)
   (use-package js2-mode :ensure t)
   (use-package virtualenvwrapper :ensure t)
+  (use-package ag :ensure t)
+  (use-package helm :ensure t)
+  (use-package helm-ag :ensure t)
+  (use-package rjsx-mode :ensure t)
 #+END_SRC
 * Window Features
 Remove clutter, start in fullscreen.
@@ -60,13 +64,14 @@ Remove clutter, start in fullscreen.
   (setq-default c-default-style "linux"
                 c-basic-offset 4)
   (setq-default indent-tabs-mode nil)
-
+  (setq-default js2-basic-offset 2)
+  (setq js-switch-indent-offset 2)
+  ;(setq js2-indent-switch-body t)
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
-  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode))
 #+END_SRC
 * Theme and Buffer Visuals
-
 #+BEGIN_SRC emacs-lisp
   (load-theme 'gruvbox t)
   ;(load-theme 'zenburn t)
@@ -79,14 +84,18 @@ Remove clutter, start in fullscreen.
   (show-paren-mode)
   (global-hl-line-mode 1)
 
-  (global-prettify-symbols-mode t)
+  ;(global-prettify-symbols-mode t)
 
-  (add-hook 'js2-mode-hook
-            (lambda ()
-              (push '("function" . ƒ) prettify-symbols-alist)))
+  ;(add-hook 'js2-mode-hook
+  ;          (lambda ()
+  ;            (push '("function" . ƒ) prettify-symbols-alist)))
 
   (set-face-foreground 'highlight nil )
   ;(set-face-attribute 'region nil :background "#666")
+
+  (setq frame-title-format
+        (list (format "%s %%S: %%j " (system-name))
+              '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
 #+END_SRC
 * Various Settings
@@ -95,30 +104,39 @@ Remove clutter, start in fullscreen.
   (setq tramp-default-method "ssh")
 
   ;Paredit
-  (add-hook 'clojure-mode-hook 'paredit-mode)
-  (add-hook 'lisp-mode-hook 'paredit-mode)
-  (add-hook 'cider-repl-mode-hook 'paredit-mode)
+  ;(add-hook 'clojure-mode-hook 'paredit-mode)
+  ;(add-hook 'lisp-mode-hook 'paredit-mode)
+  ;(add-hook 'cider-repl-mode-hook 'paredit-mode)
 
   ;prog-mode
   (defun my-prog-mode-hook ()
-    (idle-highlight-mode 1)
-    (rainbow-delimiters-mode 1))
+    (idle-highlight-mode 1))
+  ;  (rainbow-delimiters-mode 1))
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
 
+  (custom-set-variables
+   '(helm-follow-mode-persistent t))
+
+  (helm-mode 1)
+
+  (custom-set-variables
+   '(helm-ag-insert-at-point 'symbol))
   ;CIDER
-  (setq cider-mode-line-show-connection nil)
+  ;(setq cider-mode-line-show-connection nil)
 
   ; Virtual env wrapper (Python)
-  (require 'virtualenvwrapper)
-  (venv-initialize-interactive-shells)
+  ;(require 'virtualenvwrapper)
+  ;(venv-initialize-interactive-shells)
 
 #+END_SRC
 * Command Bindings
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key "\M-i" 'delete-indentation)
-
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x C-q") 'helm-find-files)
+  (global-set-key "\M-s" 'helm-ag)
   (global-set-key "\M-n" "\C-u1\C-v") ;Scroll down
   (global-set-key "\M-p" "\C-u1\M-v") ;Scroll up
 
@@ -136,9 +154,9 @@ Remove clutter, start in fullscreen.
 
   (global-set-key (kbd "<S-return>") 'end-of-line-and-indented-new-line)
 
-  (setq smerge-command-prefix (kbd "C-!"))
+  (setq smerge-command-prefix (kbd "c-!"))
 
-  ;Move cursor to other window after split
+  ;move cursor to other window after split
   (defun other-window-after-below-split ()
     (interactive)
     (split-window-below)
@@ -151,11 +169,12 @@ Remove clutter, start in fullscreen.
 
   (global-set-key (kbd "\C-x 2") 'other-window-after-below-split)
   (global-set-key (kbd "\C-x 3") 'other-window-after-right-split)
+
 #+END_SRC
 * Auto-complete and Snippets
 Activate company mode:
 #+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook 'global-company-mode)
+;(add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 * Org-mode
 #+BEGIN_SRC emacs-lisp
@@ -166,5 +185,23 @@ Activate company mode:
   (setq TeX-PDF-mode t)
   (setq org-html-postamble nil)
 #+END_SRC
+* LaTeX
+#+BEGIN_SRC emacs-lisp
+  ; Auctex
+  (setq-default TeX-master nil)
+  (setq TeX-parse-self t)
+  (setq TeX-auto-save t)
+
+  ; Spell check:
+  (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/")
+  (setq ispell-program-name "aspell")
+  ;(setq ispell-personal-dictionary "C:/path/to/your/.ispell")
+
+  (require 'ispell)
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'fundamental-mode 'flyspell-mode)
+#+END_SRC
+
 * Notes
 That's all folks!
