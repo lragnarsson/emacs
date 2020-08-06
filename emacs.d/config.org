@@ -18,8 +18,8 @@
   (use-package gruvbox-theme :ensure t)
   (use-package multiple-cursors :ensure t)
   (use-package web-mode :ensure t)
-  (use-package yasnippet :ensure t)
-  (use-package cider :ensure t)
+  ;(use-package yasnippet :ensure t)
+  ;(use-package cider :ensure t)
   (use-package idle-highlight-mode :ensure t)
   (use-package paredit :ensure t)
   (use-package powerline :ensure t)
@@ -39,7 +39,7 @@ Remove clutter, start in fullscreen.
 (tool-bar-mode -1)
 (global-linum-mode t)
 
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+;(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (setq column-number-mode t)
 
 ;Powerline
@@ -158,7 +158,7 @@ Remove clutter, start in fullscreen.
 * Auto-complete and Snippets
 Activate company mode:
 #+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook 'global-company-mode)
+;(add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 * Org-mode
 #+BEGIN_SRC emacs-lisp
